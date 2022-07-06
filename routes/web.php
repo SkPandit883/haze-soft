@@ -1,8 +1,10 @@
 <?php
 
-use App\Library\Message;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +20,11 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
-// ['auth.admin']
 Route::prefix('dashboard')->middleware([])->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('/companies', [DashboardController::class, 'companies'])->name('companies');
-    Route::get('/departments', [DashboardController::class, 'departments'])->name('departments');
-    Route::get('/employees', [DashboardController::class, 'employees'])->name('employees');
+    Route::apiResource('company', CompanyController::class)->except(['show']);
+    Route::apiResource('department', DepartmentController::class)->except(['show']);
+    Route::apiResource('employee', EmployeeController::class)->except(['show']);
 });
 
 require __DIR__ . '/auth.php';

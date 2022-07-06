@@ -24,10 +24,9 @@ class CompanyRequest extends FormRequest
     public function rules()
     {
         return [
-          'companies'=>['required','array'],
-          'companies.*.name'=>['required','string'],
-          'companies.*.location'=>['required','string'],
-          'companies.*.contact'=>['required','digits:10'],
+          'name'=>['required','string'],
+          'location'=>['required','string'],
+          'contact'=>['required','digits:10'],
         ];
     }
 }

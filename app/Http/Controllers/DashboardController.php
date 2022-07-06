@@ -11,7 +11,6 @@ class DashboardController extends Controller
 
     }
     public function companies(){
-        return view('company');
     } 
     public function departments(){
         return 'departments';

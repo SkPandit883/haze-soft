@@ -77,19 +77,19 @@
                 </a>
               </li>
               <li class="menu-item ">
-                <a href="{{route('companies')}}" class="menu-link">
+                <a href="{{route('company.index')}}" class="menu-link">
                   <i class="menu-icon tf-icons bx  bx-category"></i>
                   <div data-i18n="Analytics">Companies</div>
                 </a>
               </li> 
               <li class="menu-item">
-                <a href="{{route('departments')}}" class="menu-link">
+                <a href="{{route('department.index')}}" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
                   <div data-i18n="Analytics">Departments</div>
                 </a>
               </li>  
               <li class="menu-item">
-                <a href="{{route('employees')}}" class="menu-link">
+                <a href="{{route('employee.index')}}" class="menu-link">
                   <i class="menu-icon tf-icons bx bxl-deezer"></i>
                   <div data-i18n="Analytics">Employees</div>
                 </a>
