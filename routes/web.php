@@ -1,6 +1,8 @@
 <?php
 
+use App\Library\Message;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
+// ['auth.admin']
+Route::prefix('dashboard')->middleware([])->group(function () {
+    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/companies', [DashboardController::class, 'companies'])->name('companies');
+    Route::get('/departments', [DashboardController::class, 'departments'])->name('departments');
+    Route::get('/employees', [DashboardController::class, 'employees'])->name('employees');
+});
+
+require __DIR__ . '/auth.php';
+
