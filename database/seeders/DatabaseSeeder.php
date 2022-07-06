@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         Company::factory(10)
             ->has(Department::factory(4)
-            ->has(Employee::factory(5),'employees')
+            ->has(Employee::factory(5), 'employees')
             ,'departments')->create();
     }
 }

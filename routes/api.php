@@ -19,10 +19,11 @@ use App\Http\Controllers\Api\ApiController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/companies', [ApiController::class, 'companyStore']);
-Route::get('/departments', [ApiController::class, 'departments']);
-Route::get('/departments', [ApiController::class, 'departments']);
-Route::get('/employee/show/{employee_id}',[ApiController::class, 'employee']);
+Route::get('/companies', [ApiController::class, 'companies']);
+Route::get('/departments/{company_id}', [ApiController::class, 'departments']);
+Route::get('/company/employees/{company_id}', [ApiController::class, 'companyEmployees']);
+Route::get('/department/employees/{department_id}', [ApiController::class, 'departmentEmployees']);
+Route::get('/employee/show/{employee_id}', [ApiController::class, 'employee']);
 Route::fallback(function () {
     return Message::notFound();
 });
