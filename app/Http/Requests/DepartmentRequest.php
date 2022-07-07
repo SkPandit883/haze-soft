@@ -25,6 +25,7 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'company_id' => ['required', 'exists:companies,id'],
+            'name'=>['required', 'string']
         ];
     }
 }

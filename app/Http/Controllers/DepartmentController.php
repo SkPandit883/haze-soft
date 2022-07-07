@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Http\Requests\DepartmentRequest;
 
 class DepartmentController extends Controller
 {
@@ -14,7 +16,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $companies=Company::all();
+        $departments=Department::with('company')->get();
+        return view('department',compact('companies','departments'));
     }
 
     /**
@@ -22,10 +26,7 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -33,9 +34,10 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        //
+        Department::create($request->validated());
+        return redirect()->back()->with('status','Successfully new department added');
     }
 
     /**
@@ -44,10 +46,7 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -55,11 +54,7 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department)
-    {
-        //
-    }
-
+  
     /**
      * Update the specified resource in storage.
      *
@@ -67,9 +62,11 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(DepartmentRequest $request, Department $department)
     {
-        //
+        $department->update($request->validated());
+        return redirect()->back()->with('status', 'successfully updated');
+       
     }
 
     /**
@@ -80,6 +77,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+        return redirect()->back()->with('status','successfully removed');
     }
 }
