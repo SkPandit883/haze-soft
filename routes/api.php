@@ -4,6 +4,7 @@ use App\Library\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +16,14 @@ use App\Http\Controllers\Api\ApiController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login',[AuthController::class,'login']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/departments/{company_id}', [ApiController::class, 'departments']);
+    Route::get('/department/employees/{department_id}', [ApiController::class, 'departmentEmployees']);
+    Route::get('/employee/show/{employee_id}', [ApiController::class, 'employee']);
 });
 Route::get('/companies', [ApiController::class, 'companies']);
-Route::get('/departments/{company_id}', [ApiController::class, 'departments']);
 Route::get('/company/employees/{company_id}', [ApiController::class, 'companyEmployees']);
-Route::get('/department/employees/{department_id}', [ApiController::class, 'departmentEmployees']);
-Route::get('/employee/show/{employee_id}', [ApiController::class, 'employee']);
 Route::fallback(function () {
     return Message::notFound();
 });

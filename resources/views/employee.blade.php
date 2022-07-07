@@ -153,7 +153,7 @@
                                             <img src="https://img.icons8.com/ios/26/FF1111/delete-forever--v1.png" />
                                         </button>
                                     </form>
-                                    <div class="modal fade" id="editProductModal-{{ $employee->id }}" tabindex="-1"
+                                    <div class="modal fade" id="editEmployeeModal-{{ $employee->id }}" tabindex="-1"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
@@ -169,7 +169,7 @@
                                                 <div class="modal-body">
                                                     <div class="card-body">
                                                         <form method="post"
-                                                            action="{{ route('department.update', $employee->id) }}"
+                                                            action="{{ route('employee.update', $employee->id) }}"
                                                             enctype="multipart/form-data">
                                                             @csrf
                                                             @method('patch')
@@ -180,8 +180,11 @@
                                                                     <select id="defaultSelect" name="company_id"
                                                                         class="form-select">
                                                                         @foreach ($companies as $company)
-                                                                            <option value="{{ $company->id }}">
-                                                                                {{ $company->name }}</option>
+                                                                            <option
+                                                                                @if ($company->id === $company->departments[0]->company_id) selected @endif
+                                                                                value="{{ $company->id }}">
+                                                                                {{ $company->name }}
+                                                                            </option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
@@ -189,14 +192,17 @@
                                                             <div class="mb-3 row">
                                                                 <label class="col-sm-2 col-form-label"
                                                                     for="basic-default-company">Department</label>
-                                                                <div class="col-sm-10">
-                                                                    <select id="defaultSelect" name="department_id"
-                                                                        class="form-select">
-                                                                        @foreach ($companies as $company)
-                                                                            <option value="{{ $company->id }}">
-                                                                                {{ $company->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
+                                                                <div class="grid grid-cols-2 col-sm-10">
+                                                                    @foreach ($departments as $department)
+                                                                        <div>
+                                                                            <input type="checkbox" checked id="vehicle1"
+                                                                                @if (in_array($department->id, array_column($employee->departments->toArray(), 'id'))) checked @endif
+                                                                                name="department_id[]"
+                                                                                value="{{ $department->id }}">
+                                                                            <label for="vehicle2">
+                                                                                {{ $department->name }}</label><br>
+                                                                        </div>
+                                                                    @endforeach
                                                                 </div>
                                                             </div>
                                                             <div class="mb-3 row">
@@ -205,7 +211,8 @@
                                                                     Name</label>
                                                                 <div class="col-sm-10">
                                                                     <input type="text" class="form-control"
-                                                                        name="name" id="basic-default-name"
+                                                                        value="{{ $employee->name }}" name="name"
+                                                                        id="basic-default-name"
                                                                         placeholder="Cyber Security" />
                                                                 </div>
 
@@ -216,6 +223,7 @@
                                                                     Number</label>
                                                                 <div class="col-sm-10">
                                                                     <input type="text" class="form-control"
+                                                                        value="{{ $employee->employee_number }}"
                                                                         name="employee_number" id="basic-default-name"
                                                                         placeholder="Cyber Security" />
                                                                 </div>
@@ -226,26 +234,29 @@
                                                                     for="basic-default-name"> Email</label>
                                                                 <div class="col-sm-10">
                                                                     <input type="email" class="form-control"
-                                                                        name="email" id="basic-default-name"
+                                                                        value="{{ $employee->email }}" name="email"
+                                                                        id="basic-default-name"
+                                                                        placeholder="test@gmail.com" />
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="mb-3 row">
+                                                                <label class="col-sm-2 col-form-label"
+                                                                    for="basic-default-name"> Contact</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{ $employee->contact }}" name="contact"
+                                                                        id="basic-default-name"
                                                                         placeholder="Cyber Security" />
                                                                 </div>
 
                                                             </div>
                                                             <div class="mb-3 row">
                                                                 <label class="col-sm-2 col-form-label"
-                                                                    for="basic-default-name"> Email</label>
+                                                                    for="basic-default-name"> Designation</label>
                                                                 <div class="col-sm-10">
                                                                     <input type="text" class="form-control"
-                                                                        name="contact" id="basic-default-name"
-                                                                        placeholder="Cyber Security" />
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="mb-3 row">
-                                                                <label class="col-sm-2 col-form-label"
-                                                                    for="basic-default-name"> Email</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
+                                                                        value="{{ $employee->designation }}"
                                                                         name="designation" id="basic-default-name"
                                                                         placeholder="Cyber Security" />
                                                                 </div>

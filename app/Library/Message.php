@@ -27,4 +27,17 @@ class Message
     {
         return response()->json(['status' => 'error', 'message' => 'API resource not found'], 404)->withHeaders((new self)->header);
     }
+    public static function invalidCredentials()
+    {
+        return response()->json(['status' => 'error', 'message' => 'invalid credentials'], 400);
+    }
+    public static function authenticated($user)
+    {
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+            'message' => 'successfully logged in',
+            'access_token' => 'Bearer ' . $user->createToken('admin')->plainTextToken
+        ], 200);
+    }
 }

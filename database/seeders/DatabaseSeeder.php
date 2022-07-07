@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        
+        $this->call([
+            UserSeeder::class
+        ]);
         Company::factory(10)
             ->has(Department::factory(4)
             ->has(Employee::factory(5), 'employees')

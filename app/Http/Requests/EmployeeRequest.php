@@ -13,7 +13,7 @@ class EmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,13 +24,19 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required', 'string'],
-            'department_id.*'=>['required'],
-            'name'=>['required', 'string'],
-            'employee_number'=>['required', 'string'],
-            'email'=>['required', 'email'],
-            'contact'=>['required', 'contact'],
-            'designation'=>['required', 'desination']
+            'name' => ['required', 'string'],
+            'department_id' => ['required', 'array'],
+            'name' => ['required', 'string'],
+            'employee_number' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'contact' => ['required', 'string'],
+            'designation' => ['required', 'string']
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'department_id.required' => 'At least one deparment must be selected',
         ];
     }
 }

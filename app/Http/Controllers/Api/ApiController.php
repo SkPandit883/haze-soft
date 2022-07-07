@@ -51,6 +51,7 @@ class ApiController extends Controller
     public function departmentEmployees($department_id)
     {
         try {
+            return Department::with('employees')->where('id',$department_id)->get();
             return Message::success(EmployeeResource::collection(Employee::where('department_id', $department_id)->paginate($this->per_page))->response()->getData(), 'employees');
         } catch (NotFoundHttpException $e) {
             return Message::error($e->getMessage());

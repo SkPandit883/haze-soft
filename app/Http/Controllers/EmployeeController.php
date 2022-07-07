@@ -19,8 +19,8 @@ class EmployeeController extends Controller
     {
         $companies = Company::all();
         $employees = Employee::with('departments.company')->paginate(10);
-        $departments=Department::all();
-        return view('employee', compact('companies', 'employees','departments'));
+        $departments = Department::all();
+        return view('employee', compact('companies', 'employees', 'departments'));
     }
 
     /**
@@ -37,7 +37,19 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-
+        $employee = Employee::create([
+            'name' => $request->name,
+            'employee_number' => $request->employee_number,
+            'email' => $request->email,
+            'contact' => $request->contact,
+            'designation' => $request->designation,
+        ]);
+        foreach ($request->department_id as $key => $d_ids) {
+            $employee->departments()->attach([
+                'department_id' => $d_ids
+            ]);
+        }
+        return redirect()->back()->with('status', 'successfully added new employee');
     }
 
     /**
@@ -53,10 +65,7 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -65,9 +74,17 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(EmployeeRequest $request, Employee $employee)
     {
-        //
+        $employee->update([
+            'name' => $request->name,
+            'employee_number' => $request->employee_number,
+            'email' => $request->email,
+            'contact' => $request->contact,
+            'designation' => $request->designation,
+        ]);
+        $employee->departments()->sync($request->department_id);
+        return redirect()->back()->with('status', 'successfully added new employee');
     }
 
     /**
@@ -78,6 +95,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        return redirect()->back()->with('status', 'successfully removed');
     }
 }
