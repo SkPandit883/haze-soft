@@ -16,14 +16,16 @@ class EmployeeTest extends TestCase
     public function test_show_employee_details()
     {
         $response = $this->getJson("/api/employee/show/1");
-        $response->assertSuccessful();
+        $response->assertUnauthorized();
     }
-    public function test_employee_in_a_company(){
+    public function test_employee_in_a_company()
+    {
         $response = $this->getJson("/api/company/employees/2");
         $response->assertSuccessful();
     }
-    public function test_employee_in_a_department(){
+    public function test_employee_in_a_department()
+    {
         $response = $this->getJson("/api/department/employees/1");
-        $response->assertSuccessful();
+        $response->assertUnauthorized();
     }
 }

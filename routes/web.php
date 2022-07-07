@@ -19,8 +19,8 @@ use App\Http\Controllers\DepartmentController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
-});
-Route::prefix('dashboard')->middleware([])->group(function () {
+})->middleware(['auth']);
+Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::apiResource('company', CompanyController::class)->except(['show']);
     Route::apiResource('department', DepartmentController::class)->except(['show']);

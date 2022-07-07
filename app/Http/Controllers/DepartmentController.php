@@ -17,7 +17,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $companies=Company::all();
-        $departments=Department::with('company')->get();
+        $departments=Department::with('company')->paginate(10);
         return view('department',compact('companies','departments'));
     }
 

@@ -14,7 +14,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel3">New Department</h5>
-                            <button type="button" class="text-gray-500 btn-close" data-bs-dismiss="modal"
+                            <button type="button" class="btn-close text-gray-500" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <img src="https://img.icons8.com/material-outlined/44/000000/multiply--v1.png" />
                             </button>
@@ -24,7 +24,7 @@
                                 <form method="post" action="{{ route('department.store') }}"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="mb-3 row">
+                                    <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="basic-default-company">Company</label>
                                         <div class="col-sm-10">
                                             <select id="defaultSelect" name="company_id" class="form-select">
@@ -34,7 +34,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="mb-3 row">
+                                    <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label" for="basic-default-name"> Department
                                             Name</label>
                                         <div class="col-sm-10">
@@ -49,7 +49,7 @@
 
 
 
-                                    <div class="mt-5 modal-footer">
+                                    <div class="modal-footer mt-5">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                             Close
                                         </button>
@@ -103,7 +103,7 @@
                                         id="department-delete-{{ $department->id }}" method="POST">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="button" class="text-2xl text-red-500 m"
+                                        <button type="button" class="text-red-500 text-2xl m"
                                             onclick='deleteRow("department-delete-{{ $department->id }}")'>
                                             <img src="https://img.icons8.com/ios/26/FF1111/delete-forever--v1.png" />
                                         </button>
@@ -115,7 +115,7 @@
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel3">Edit Product</h5>
 
-                                                    <button type="button" class="text-gray-500 btn-close"
+                                                    <button type="button" class="btn-close text-gray-500"
                                                         data-bs-dismiss="modal" aria-label="Close">
                                                         <img
                                                             src="https://img.icons8.com/material-outlined/44/000000/multiply--v1.png" />
@@ -128,7 +128,7 @@
                                                             enctype="multipart/form-data">
                                                             @csrf
                                                             @method('patch')
-                                                            <div class="mb-3 row">
+                                                            <div class="row mb-3">
                                                                 <label class="col-sm-2 col-form-label"
                                                                     for="basic-default-company">Company</label>
                                                                 <div class="col-sm-10">
@@ -143,7 +143,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="mb-3 row">
+                                                            <div class="row mb-3">
                                                                 <label class="col-sm-2 col-form-label"
                                                                     for="basic-default-name"> Name</label>
                                                                 <div class="col-sm-10">
@@ -157,7 +157,7 @@
 
 
 
-                                                            <div class="mt-5 modal-footer">
+                                                            <div class="modal-footer mt-5">
                                                                 <button type="button" class="btn btn-outline-secondary"
                                                                     data-bs-dismiss="modal">
                                                                     Close
@@ -183,6 +183,9 @@
                 </table>
             </div>
         </div>
-        <!--/ Basic Bootstrap Table -->
+        <div class="m-3 ">
+            {{ $departments->links() }}
+
+        </div>
     </div>
 @endsection

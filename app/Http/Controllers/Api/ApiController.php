@@ -35,7 +35,7 @@ class ApiController extends Controller
     public function departments($company_id)
     {
         try {
-            return Message::success(DepartmentResource::collection(Department::where('company_id', $company_id)->paginate($this->per_page))->response()->getData());
+            return Message::success(DepartmentResource::collection(Department::where('company_id', $company_id)->paginate($this->per_page))->response()->getData(), 'departments');
         } catch (Throwable $th) {
             return Message::error($th->getMessage());
         }
@@ -51,8 +51,10 @@ class ApiController extends Controller
     public function departmentEmployees($department_id)
     {
         try {
-            return Department::with('employees')->where('id',$department_id)->get();
-            return Message::success(EmployeeResource::collection(Employee::where('department_id', $department_id)->paginate($this->per_page))->response()->getData(), 'employees');
+            $employees = Employee::whereHas('departments', function ($query) use ($department_id) {
+                $query->where('departments.id', $department_id);
+            })->paginate($this->per_page);
+            return Message::success(EmployeeResource::collection($employees)->response()->getData(), 'employees');
         } catch (NotFoundHttpException $e) {
             return Message::error($e->getMessage());
         }

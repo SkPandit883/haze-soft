@@ -1,7 +1,9 @@
 <?php
 
 namespace Tests\Unit;
+
 use Tests\TestCase;
+
 class DepartmentTest extends TestCase
 {
     /**
@@ -12,6 +14,6 @@ class DepartmentTest extends TestCase
     public function test_departments_list()
     {
         $response = $this->getJson("/api/departments/1");
-        $response->assertSuccessful();
+        $response->assertUnauthorized();
     }
 }
