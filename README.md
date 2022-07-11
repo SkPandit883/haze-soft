@@ -40,6 +40,7 @@ run `composer install` to install all dependencies.
  <h6>Step 8</h6>
 
  run `php artisan serve ` to run  project locally.the project will be run at http://127.0.0.1:8000/ .
+ default admin email `admin@gmail.com` and password `admin123`
  <h6>Step 8</h6>
 
  run `php artisan test` to run some of the available TestCases.
